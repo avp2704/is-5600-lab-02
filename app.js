@@ -25,26 +25,22 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // find the user object in our data
     const id = document.querySelector('#userID').value;
-    const userIndex = userData.findIndex((user) => user.id == id);
 
-    const newUsers = [
-      ...userData.slice(0, userIndex),
-      {
-        ...userData[userIndex],
-        user: {
-          firstname: document.querySelector("#firstname").value,
-          lastname: document.querySelector("#lastname").value,
-          address: document.querySelector("#address").value,
-          city: document.querySelector("#city").value,
-          email: document.querySelector("#email").value,
-        },
-      },
-      ...userData.slice(userIndex + 1)
-    ];
-    
-      generateUserList(newUsers, stocksData);
+    for (let i=0; i<userData.length; i++) {
+        // found relevant user, so update object at this index and redisplay
+        if (userData[i].id == id) {
 
+            userData[i].user.firstname = document.querySelector('#firstname').value;
+            userData[i].user.lastname = document.querySelector('#lastname').value;
+            userData[i].user.address = document.querySelector('#address').value;
+            userData[i].user.city = document.querySelector('#city').value;
+            userData[i].user.email = document.querySelector('#email').value;     
+
+            generateUserList(userData, stocksData);
+        }
+    }
   });
+
  
         function generateUserList(users, stocks) {
     // get the list element and for each user create a list item and append it to the list
